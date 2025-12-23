@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ShortLink.Client/ShortLink.Client.csproj" />
+  <Project Path="ShortLink.Data/ShortLink.Data.csproj" />
+  <Project Path="ShortLink.Redirect/ShortLink.Redirect.csproj" />
+</Solution>
