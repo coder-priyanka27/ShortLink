@@ -43,6 +43,7 @@ namespace ShortLink.Client.Controllers
             TempData["Successmessage"] = "Sucessful!";
             ViewBag.Test1 = "Test1";
             ViewData["Test2"] = "Test2";
+
             return RedirectToAction("Index");
         }
     }
