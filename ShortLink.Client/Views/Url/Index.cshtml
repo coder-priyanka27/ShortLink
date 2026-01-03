@@ -1,14 +1,42 @@
 ﻿
 
 @{
-    var currentDateTime = DateTime.Now;
-    // var allUrls = ViewData["AllUrls"] as List<string>;
+    ViewData["Title"] = "All Shortened Links";
 }
 
- 
-@if (TempData["Successmessage"]!= null)
-{
-    <div class="alert alert-success">
-        Sucess @TempData["Successmessage"].ToString();
-    </div>
-}
+<div class="container">
+    <a class="btn btn-outline-success"
+        asp-controller="Home"
+        asp-action="Index">
+        Add New
+    </a>
+</div>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Original link</th>
+                <th scope="col">Shortened link</th>
+                <th scope="col">Number of clicks</th>
+                <th scope="col">User</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>https://original.com</td>
+                <td>ertr</td>
+                <td>3</td>
+                <td>Priya</td>
+                <td>
+                    <a class="btn btn-outline-danger" asp-controller="Url" asp-action="Remove">
+                        Remove
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
