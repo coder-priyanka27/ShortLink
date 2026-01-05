@@ -8,32 +8,34 @@ namespace ShortLink.Client.Controllers
         public IActionResult Index()
         {
             //// Data is from DB
-            //var urlDb = new Url()
-            //{
-            //    Id = 1,
-            //    OriginalLink = "https://original.com",
-            //    ShortLink = "Shortlink",
-            //    NoOfClicks = 1,
-            //    UserId = 1,
-            //};
-
-            //var allData = new List<Url>();
-            //allData.Add(urlDb);
-            //ViewData["ShortenedUrl"] = "This is just a short url";
-            //ViewData["AllUrls"] = new List<string>() { "Url 1", "Url 2", "Url 3" };
-            //ViewBag.ShortenedUrl = "This is just a short url";
-            //ViewBag.AllUrls = new List<string>() { "Url 1", "Url 2", "Url 3", "Url 4" };
-            var tempData = TempData["Successmessage"];
-            var viewBag = ViewBag.Test1;
-            var viewData = ViewData["Test2"];
-            if (TempData["Successmessage"] != null)
+            var allUrls = new List<Url>()
             {
-               if(TempData["Successmessage"] != null)
+                new Url
                 {
-                    ViewBag.Successmessage = TempData["Successmessage"].ToString();
-                }
-            }
-            return View();
+                    Id = 1,
+                    OriginalLink = "https://example1.com/1",
+                    ShortLink = "https://shortlink1/1",
+                    NoOfClicks = 1,
+                    UserId = 1
+                },
+
+                new Url
+                {
+                    Id = 2,
+                    OriginalLink = "https://example2.com/2",
+                    ShortLink = "https://shortlink2/2",
+                    NoOfClicks = 2,
+                    UserId = 2
+                },
+                new Url
+                {
+                    Id = 3,
+                    OriginalLink = "https://example3.com/3",
+                    ShortLink = "https://shortlink3/3",
+                    NoOfClicks = 3,
+                    UserId = 3
+                },            };
+            return View(allUrls);
         }
 
         public IActionResult Create()
