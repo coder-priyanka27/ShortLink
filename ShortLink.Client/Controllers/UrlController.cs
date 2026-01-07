@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShortLink.Client.Data.Models;
+using ShortLink.Client.Data.ViewModels;
 
 namespace ShortLink.Client.Controllers
 {
@@ -8,9 +9,9 @@ namespace ShortLink.Client.Controllers
         public IActionResult Index()
         {
             //// Data is from DB
-            var allUrls = new List<Url>()
+            var allUrls = new List<GetUrlViewModel>()
             {
-                new Url
+                new GetUrlViewModel
                 {
                     Id = 1,
                     OriginalLink = "https://example1.com/1",
@@ -19,7 +20,7 @@ namespace ShortLink.Client.Controllers
                     UserId = 1
                 },
 
-                new Url
+                new GetUrlViewModel
                 {
                     Id = 2,
                     OriginalLink = "https://example2.com/2",
@@ -27,7 +28,7 @@ namespace ShortLink.Client.Controllers
                     NoOfClicks = 2,
                     UserId = 2
                 },
-                new Url
+                new GetUrlViewModel
                 {
                     Id = 3,
                     OriginalLink = "https://example3.com/3",
