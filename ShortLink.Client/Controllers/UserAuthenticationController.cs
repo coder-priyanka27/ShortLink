@@ -13,5 +13,9 @@ namespace ShortLink.Client.Controllers
         {
             return View();
         }
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }
