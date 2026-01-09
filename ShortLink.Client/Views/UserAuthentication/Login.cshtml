@@ -20,11 +20,38 @@
                         <input type="password" asp-for="Password" name="password" class="form-control" id="password" placeholder="Enter password" />
                     </div>
 
-                    <button type="submit" class="btn btn-outline-success mt-2 btn-login">
+                    @* <button type="submit" class="btn btn-outline-success mt-2 btn-login">
                         Log In
-                    </button>
+                    </button> *@
+                     <button onclick="login" class="btn btn-outline-success mt-2 btn-login">
+                        Log In
+                    </button> 
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+     function login()
+     {
+        var emailAddress = $("#emailAddress").val();
+       var password = $("#password").val();
+
+       $.ajax({
+         url: '@Url.Action("UserAuthentication", "UserAuthentication")',
+         type: 'POST',
+         dataType: 'json',
+         data: {
+            EmailAddress : emailAddress,
+            Password : password
+         },
+         sucess: function(response){
+             console.log("Login successful!");
+         },
+         error: function(xhr, status, error){
+             console.log("Login failed");
+         }
+       });
+     }
+</script>
