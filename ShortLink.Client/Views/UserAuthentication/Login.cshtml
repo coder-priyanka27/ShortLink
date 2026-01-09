@@ -1,4 +1,5 @@
-﻿@{
+﻿@model LoginViewModel;
+@{
     ViewData["Title"] = "Log in to your account";
 }
 <div class="row">
@@ -8,15 +9,15 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
 
-                <form asp-controller="UserAuthentication" asp-action="Login">
+                <form asp-controller="UserAuthentication" asp-action="LoginSubmitted">
                     <div class="form-group mb-3">
                         <lable for="emailAddress">Email Address</lable>
-                        <input type="email" class="form-control" id="emailAddress" placeholder="Enter email" />
+                        <input type="email" asp-for="EmailAddress" class="form-control" id="emailAddress" placeholder="Enter email" />
                         <small id="emailAddressSm" class="form-text text-muted">We will never share your email with anyone else.</small>
                     </div>
                     <div form-group mb-3>
                         <labl for="password">Password</labl>
-                        <input type="password" class="form-control" id="password" placeholder="Enter password" />
+                        <input type="password" asp-for="Password" name="password" class="form-control" id="password" placeholder="Enter password" />
                     </div>
 
                     <button type="submit" class="btn btn-outline-success mt-2 btn-login">

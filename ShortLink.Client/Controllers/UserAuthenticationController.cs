@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShortLink.Client.Data.ViewModels;
 
 namespace ShortLink.Client.Controllers
 {
@@ -10,6 +11,10 @@ namespace ShortLink.Client.Controllers
         }
 
         public IActionResult Login()
+        {
+            return View(new LoginViewModel());
+        }
+        public IActionResult LoginSubmitted(LoginViewModel loginViewModel)
         {
             return View();
         }
