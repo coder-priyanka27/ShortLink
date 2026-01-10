@@ -1,12 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ShortLink.Client.Helpers.Validators;
+using System.ComponentModel.DataAnnotations;
 
 namespace ShortLink.Client.Data.ViewModels
 {
     public class LoginViewModel
     {
         [Required(ErrorMessage ="Email address is requird")]
-        [EmailAddress(ErrorMessage ="Invalid email address")]
-        [RegularExpression(@"^\S+@\S+\.\S+$", ErrorMessage = "Invalid email address")]
+        [CustomEmailValidator(ErrorMessage ="Email address is not valid (custom)")]
         public string EmailAddress { get; set; }
 
         [Required(ErrorMessage = "Password is requird")]
