@@ -24,7 +24,14 @@ namespace ShortLink.Client.Controllers
         }
         public IActionResult Register()
         {
-            return View();
+            return View(new RegisterViewModel());
+        }
+        public IActionResult RegisterUser(RegisterViewModel registerViewModel)
+        {
+            if (!ModelState.IsValid) {
+                return View("Register", registerViewModel);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }
