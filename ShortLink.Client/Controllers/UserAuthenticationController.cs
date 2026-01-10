@@ -16,7 +16,11 @@ namespace ShortLink.Client.Controllers
         }
         public IActionResult LoginSubmitted(LoginViewModel loginViewModel)
         {
-            return View();
+            if(!ModelState.IsValid)
+            {
+                return View("Login", loginViewModel);
+            }
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Register()
         {

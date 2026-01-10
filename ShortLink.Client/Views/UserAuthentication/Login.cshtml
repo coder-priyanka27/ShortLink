@@ -13,45 +13,21 @@
                     <div class="form-group mb-3">
                         <lable for="emailAddress">Email Address</lable>
                         <input type="email" asp-for="EmailAddress" class="form-control" id="emailAddress" placeholder="Enter email" />
-                        <small id="emailAddressSm" class="form-text text-muted">We will never share your email with anyone else.</small>
+                        <small id="emailAddressSm" class="form-text text-muted">We will never share your email with anyone else.</small><br />
+                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
                     </div>
                     <div form-group mb-3>
                         <labl for="password">Password</labl>
                         <input type="password" asp-for="Password" name="password" class="form-control" id="password" placeholder="Enter password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
-                    @* <button type="submit" class="btn btn-outline-success mt-2 btn-login">
+                    <button type="submit" class="btn btn-outline-success mt-2 btn-login">
                         Log In
-                    </button> *@
-                     <button onclick="login" class="btn btn-outline-success mt-2 btn-login">
-                        Log In
-                    </button> 
+                    </button>
+                   
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-     function login()
-     {
-        var emailAddress = $("#emailAddress").val();
-       var password = $("#password").val();
-
-       $.ajax({
-         url: '@Url.Action("UserAuthentication", "UserAuthentication")',
-         type: 'POST',
-         dataType: 'json',
-         data: {
-            EmailAddress : emailAddress,
-            Password : password
-         },
-         sucess: function(response){
-             console.log("Login successful!");
-         },
-         error: function(xhr, status, error){
-             console.log("Login failed");
-         }
-       });
-     }
-</script>

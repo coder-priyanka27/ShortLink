@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PostUrlViewModel
+
+@{
     ViewData["Title"] = "Welcome";
 }
 
@@ -23,10 +25,17 @@
 <section class="features" id="features">
     <div class="container">
         <div class="url-shorten-feature"> 
-            <form class="url-shorten-form" id="url-shorten-form">
+            <form class="url-shorten-form" id="url-shorten-form"
+            asp-controller="Home"
+            asp-action="ShortenUrl">
                 <div>
-                    <input type="text" class="url-input" name="urlToShorten" placeholder="Enter your long URL here..."  />
-                    <span class="alert"></span>
+                    <input asp-for="Url" 
+                    type="text" 
+                    class="url-input" 
+                    placeholder="Enter your long URL here..." 
+                    autocomplete="off"  />
+
+                <span asp-validation-for="Url" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-lg" style="">Make It Short!</button>
             </form>
