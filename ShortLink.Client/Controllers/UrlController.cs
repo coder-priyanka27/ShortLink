@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShortLink.Client.Data.Models;
 using ShortLink.Client.Data.ViewModels;
 
 namespace ShortLink.Client.Controllers

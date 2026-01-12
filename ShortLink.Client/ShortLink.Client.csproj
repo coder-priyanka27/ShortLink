@@ -10,4 +10,8 @@
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShortLink.Data\ShortLink.Data.csproj" />
+  </ItemGroup>
+
 </Project>
