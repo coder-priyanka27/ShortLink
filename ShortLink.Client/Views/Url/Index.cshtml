@@ -1,0 +1,57 @@
+﻿@model List<GetUrlViewModel>;
+
+@{
+    ViewData["Title"] = "All Shortened Links";
+}
+
+<div class="container">
+    <a class="btn btn-outline-success"
+        asp-controller="Home"
+        asp-action="Index">
+        Add New
+    </a>
+</div>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Original link</th>
+                <th scope="col">Shortened link</th>
+                <th scope="col">Number of clicks</th>
+                <th scope="col">User</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            @foreach (var url in Model)
+            {
+            <tr>
+                    <td>@url.Id</td>
+                    <td>@url.OriginalLink</td>
+                    <td>@url.ShortLink</td>
+                    <td>@url.NoOfClicks</td>
+                    <td>@url.UserId</td>
+                    <td>
+                        <a class="btn btn-outline-danger" 
+                        asp-controller="Url" 
+                        asp-action="Remove"
+                        asp-route-id="@url.Id">
+                            Remove
+                        </a>
+                        <a class="btn btn-outline-danger"
+                           asp-controller="Url"
+                           asp-action="Remove"
+                           asp-route-userId="@url.UserId"
+                           asp-route-linkId="@url.Id">
+                            Remove with 2 parameters
+                        </a>
+                        
+                    </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

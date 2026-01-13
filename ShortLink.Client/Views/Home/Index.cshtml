@@ -1,8 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model PostUrlViewModel
+
+@{
+    ViewData["Title"] = "Welcome";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="landing py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+
+                <img src="~/img/short-link.png" class="img-fluid" alt="" />  
+            </div>
+            <div class="col-lg-8">
+                <h1 class="display-4">More than just shorter links - Instant Link Shortener</h1>
+                <p class="lead">
+                    Welcome to ShortLink, your go-to solution for creating concise and manageable URLs. ShortLink makes it easy to shorten long URLs into compact, user-friendly links.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="features" id="features">
+    <div class="container">
+        <div class="url-shorten-feature"> 
+            <form class="url-shorten-form" id="url-shorten-form"
+            asp-controller="Home"
+            asp-action="ShortenUrl">
+                <div>
+                    <input asp-for="Url" 
+                    type="text" 
+                    class="url-input" 
+                    placeholder="Enter your long URL here..." 
+                    autocomplete="off"  />
+
+                <span asp-validation-for="Url" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-lg" style="">Make It Short!</button>
+            </form>
+            <div class="url-shorten-results"></div>
+        </div>
+    </div>
+
+</section>

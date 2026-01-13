@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using ShortLink.Client.Models;
+using ShortLink.Client.Data.ViewModels;
+using System.Diagnostics;
 
 namespace ShortLink.Client.Controllers
 {
@@ -15,18 +15,19 @@ namespace ShortLink.Client.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new PostUrlViewModel());
         }
 
-        public IActionResult Privacy()
+        public IActionResult ShortenUrl(PostUrlViewModel postUrlViewModel)
         {
-            return View();
+            // Validate the Model
+            if(!ModelState.IsValid)
+            {
+                return View("Index", postUrlViewModel);
+            }
+            //return View("Index");
+            return RedirectToAction("Index");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
