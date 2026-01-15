@@ -1,40 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShortLink.Client.Data.ViewModels;
+using ShortLink.Data;
 
 namespace ShortLink.Client.Controllers
 {
     public class UrlController : Controller
     {
+        private AppDbContext _context { get; set; }
+        public UrlController(AppDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             //// Data is from DB
-            var allUrls = new List<GetUrlViewModel>()
-            {
-                new GetUrlViewModel
-                {
-                    Id = 1,
-                    OriginalLink = "https://example1.com/1",
-                    ShortLink = "https://shortlink1/1",
-                    NoOfClicks = 1,
-                    UserId = 1
-                },
 
-                new GetUrlViewModel
-                {
-                    Id = 2,
-                    OriginalLink = "https://example2.com/2",
-                    ShortLink = "https://shortlink2/2",
-                    NoOfClicks = 2,
-                    UserId = 2
-                },
-                new GetUrlViewModel
-                {
-                    Id = 3,
-                    OriginalLink = "https://example3.com/3",
-                    ShortLink = "https://shortlink3/3",
-                    NoOfClicks = 3,
-                    UserId = 3
-                },            };
+            var allUrls = _context.Urls.Select(url => new GetUrlViewModel()
+            {
+                Id = url.Id,
+                OriginalLink = url.OriginalLink,
+                ShortLink = url.ShortLink,
+                NoOfClicks = url.NoOfClicks,
+                UserId = url.UserId
+            }).ToList();
             return View(allUrls);
         }
 
