@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
 using ShortLink.Data;
 
@@ -15,13 +16,19 @@ namespace ShortLink.Client.Controllers
         {
             //// Data is from DB
 
-            var allUrls = _context.Urls.Select(url => new GetUrlViewModel()
+            var allUrls = _context.Urls.Include(n => n.User).Select(url => new GetUrlViewModel()
             {
                 Id = url.Id,
                 OriginalLink = url.OriginalLink,
                 ShortLink = url.ShortLink,
                 NoOfClicks = url.NoOfClicks,
-                UserId = url.UserId
+                UserId = url.UserId,
+
+                User = url.User != null ? new GetUserViewModel()
+                {
+                    Id = url.User.Id,
+                    FullName = url.User.FullName
+                } : null
             }).ToList();
             return View(allUrls);
         }

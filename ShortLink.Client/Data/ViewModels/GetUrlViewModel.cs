@@ -7,5 +7,7 @@
         public string ShortLink { get; set; }
         public int NoOfClicks { get; set; }
         public int? UserId { get; set; }
+
+        public GetUserViewModel? User { get; set; }
     }
 }

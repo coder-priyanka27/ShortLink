@@ -12,7 +12,7 @@
 
                     <div class="card-body">
                         <h5 class="card-title">@user.FullName</h5>
-                        <p class="card-text">This user has created 1 links and has a total of 2 clicks.</p>
+                        <p class="card-text">This user has created @user.Urls.Count link(s) and has a total of @user.Urls.Sum(n => n.NoOfClicks) click(s).</p>
 
                         <p class="d-inline-flex gap-1">
                             <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3">
@@ -31,11 +31,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>https://original.com</td>
-                                            <td>shortlink</td>
-                                            <td>2</td>
-                                        </tr>
+                                        @foreach(var userUrl in user.Urls)
+                                        {
+                                            <tr>
+                                                <td>@userUrl.OriginalLink</td>
+                                                <td>@userUrl.ShortLink</td>
+                                                <td>@userUrl.NoOfClicks</td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
@@ -43,7 +46,9 @@
                     </div>
 
                     <div class="card-footer">
-                        <small class="text-muted">1 link(s) and 2 click(s)</small>
+                        <small class="text-muted">
+                            @user.Urls.Count link(s) and has a total of @user.Urls.Sum(n => n.NoOfClicks) click(s)
+                        </small>
                     </div>
                 </div>
             </div>
