@@ -18,7 +18,8 @@ namespace ShortLink.Data.Services
 
         public User GetById(int id)
         {
-            throw new NotImplementedException();
+            var user = _context.Users.FirstOrDefault(n => n.Id == id);
+            return user;
         }
 
         public List<User> GetUsers()
@@ -28,16 +29,31 @@ namespace ShortLink.Data.Services
         }
         public User Add(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return user;
         }
         public User Update(int id, User user)
         {
-            throw new NotImplementedException();
+            var userDb = _context.Users.FirstOrDefault(n => n.Id == id);
+
+            if(userDb != null)
+            {
+                userDb.Email = user.Email;
+                userDb.FullName = user.FullName;
+
+                _context.SaveChanges();
+            }
+            return userDb;
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
-        }
+            var userDb = _context.Users.FirstOrDefault(n => n.Id == id);
+            if(userDb != null)
+            {
+                _context.Users.Remove(userDb);
+                _context.SaveChanges();
+            }
     }
 }
