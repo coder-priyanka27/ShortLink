@@ -2,19 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
 using ShortLink.Data;
+using ShortLink.Data.Services;
 
 namespace ShortLink.Client.Controllers
 {
     public class UserAuthenticationController : Controller
     {
-        private AppDbContext _context;
-        public UserAuthenticationController(AppDbContext context)
+        private IUsersService _usersService;
+        public UserAuthenticationController(IUsersService usersService)
         {
-            _context = context;
+            _usersService = usersService;
         }
         public IActionResult Users()
         {
-            var users = _context.Users.Include(n => n.Urls).ToList();
+            var users = _usersService.GetUsers();
             return View(users);
         }
 

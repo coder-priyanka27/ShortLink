@@ -37,7 +37,7 @@ namespace ShortLink.Data.Services
         {
             var userDb = _context.Users.FirstOrDefault(n => n.Id == id);
 
-            if(userDb != null)
+            if (userDb != null)
             {
                 userDb.Email = user.Email;
                 userDb.FullName = user.FullName;
@@ -50,10 +50,11 @@ namespace ShortLink.Data.Services
         public void Delete(int id)
         {
             var userDb = _context.Users.FirstOrDefault(n => n.Id == id);
-            if(userDb != null)
+            if (userDb != null)
             {
                 _context.Users.Remove(userDb);
                 _context.SaveChanges();
             }
+        }
     }
 }

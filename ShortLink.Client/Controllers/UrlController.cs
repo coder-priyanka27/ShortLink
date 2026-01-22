@@ -1,36 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
 using ShortLink.Data;
+using ShortLink.Data.Models;
+using ShortLink.Data.Services;
 
 namespace ShortLink.Client.Controllers
 {
     public class UrlController : Controller
     {
-        private AppDbContext _context { get; set; }
-        public UrlController(AppDbContext context)
+        private IUrlsService _urlsService;
+        private readonly IMapper _mapper;
+        public UrlController(IUrlsService urlsService, IMapper mapper)
         {
-            _context = context;
+            _urlsService = urlsService;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
             //// Data is from DB
 
-            var allUrls = _context.Urls.Include(n => n.User).Select(url => new GetUrlViewModel()
-            {
-                Id = url.Id,
-                OriginalLink = url.OriginalLink,
-                ShortLink = url.ShortLink,
-                NoOfClicks = url.NoOfClicks,
-                UserId = url.UserId,
-
-                User = url.User != null ? new GetUserViewModel()
-                {
-                    Id = url.User.Id,
-                    FullName = url.User.FullName
-                } : null
-            }).ToList();
-            return View(allUrls);
+            var allUrls = _urlsService.GetUrls();
+            var mappedAllUrls = _mapper.Map<List<Url>, List<GetUrlViewModel>>(allUrls);
+            return View(mappedAllUrls);
         }
 
         public IActionResult Create()
@@ -46,10 +39,7 @@ namespace ShortLink.Client.Controllers
 
         public IActionResult Remove(int id)
         {
-            var url = _context.Urls.FirstOrDefault(n => n.Id == id);
-            _context.Urls.Remove(url);
-            _context.SaveChanges();
-
+            _urlsService.Delete(id);
             return RedirectToAction("Index");
         }
         
