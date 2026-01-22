@@ -17,16 +17,16 @@ namespace ShortLink.Client.Controllers
             _urlsService = urlsService;
             _mapper = mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //// Data is from DB
 
-            var allUrls = _urlsService.GetUrls();
+            var allUrls = await _urlsService.GetUrlsAsync();
             var mappedAllUrls = _mapper.Map<List<Url>, List<GetUrlViewModel>>(allUrls);
             return View(mappedAllUrls);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             //Shorten Url
             var shortenUrl = "Short";
@@ -37,9 +37,9 @@ namespace ShortLink.Client.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            _urlsService.Delete(id);
+            await _urlsService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
         

@@ -13,17 +13,17 @@ namespace ShortLink.Client.Controllers
         {
             _usersService = usersService;
         }
-        public IActionResult Users()
+        public async Task<IActionResult> Users()
         {
-            var users = _usersService.GetUsers();
+            var users = await _usersService.GetUsersAsync();
             return View(users);
         }
 
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
             return View(new LoginViewModel());
         }
-        public IActionResult LoginSubmitted(LoginViewModel loginViewModel)
+        public async Task<IActionResult> LoginSubmitted(LoginViewModel loginViewModel)
         {
             if(!ModelState.IsValid)
             {
@@ -31,11 +31,11 @@ namespace ShortLink.Client.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
             return View(new RegisterViewModel());
         }
-        public IActionResult RegisterUser(RegisterViewModel registerViewModel)
+        public async Task<IActionResult> RegisterUser(RegisterViewModel registerViewModel)
         {
             if (!ModelState.IsValid) {
                 return View("Register", registerViewModel);
