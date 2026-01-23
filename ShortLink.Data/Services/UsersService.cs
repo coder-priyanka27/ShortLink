@@ -16,24 +16,24 @@ namespace ShortLink.Data.Services
             _context = context;
         }
 
-        public async Task<User> GetByIdAsync(int id)
+        public async Task<AppUser> GetByIdAsync(int id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(n => n.Id == id);
             return user;
         }
 
-        public async Task<List<User>> GetUsersAsync()
+        public async Task<List<AppUser>> GetUsersAsync()
         {
             var users = await _context.Users.Include(n => n.Urls).ToListAsync();
             return users;
         }
-        public async Task<User> AddAsync(User user)
+        public async Task<AppUser> AddAsync(AppUser user)
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return user;
         }
-        public async Task<User> UpdateAsync(int id, User user)
+        public async Task<AppUser> UpdateAsync(int id, AppUser user)
         {
             var userDb = await _context.Users.FirstOrDefaultAsync(n => n.Id == id);
 

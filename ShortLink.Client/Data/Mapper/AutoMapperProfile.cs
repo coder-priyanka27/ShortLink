@@ -9,7 +9,7 @@ namespace ShortLink.Client.Data.Mapper
         public AutoMapperProfile()
         {
             CreateMap<Url,GetUrlViewModel>().ReverseMap();
-            CreateMap<User, GetUserViewModel>().ReverseMap();
+            CreateMap<AppUser, GetUserViewModel>().ReverseMap();
         }
     }
 }

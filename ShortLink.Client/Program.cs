@@ -5,6 +5,8 @@ using ShortLink.Data;
 using ShortLink.Data.Services;
 using System.Reflection;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using ShortLink.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,21 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+// Configure Authentication
+// 1. Add Identity services
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+// 2. Configure the application cookie
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.LoginPath = "Authentication/Login";
+    options.SlidingExpiration = true;
 });
 
 // Add Services to the container

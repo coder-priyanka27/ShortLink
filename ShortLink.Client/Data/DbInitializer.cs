@@ -13,7 +13,7 @@ namespace ShortLink.Client.Data
 
                 if(!dbContext.Users.Any())
                 {
-                    dbContext.Users.Add(new User()
+                    dbContext.Users.Add(new AppUser()
                     {
                         FullName = "Priyanka Rambhad User",
                         Email = "priyanka@rambhad.com"
