@@ -16,7 +16,7 @@ namespace ShortLink.Data.Services
             _context = context;
         }
 
-        public async Task<AppUser> GetByIdAsync(int id)
+        public async Task<AppUser> GetByIdAsync(string id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(n => n.Id == id);
             return user;
@@ -27,34 +27,7 @@ namespace ShortLink.Data.Services
             var users = await _context.Users.Include(n => n.Urls).ToListAsync();
             return users;
         }
-        public async Task<AppUser> AddAsync(AppUser user)
-        {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-            return user;
-        }
-        public async Task<AppUser> UpdateAsync(int id, AppUser user)
-        {
-            var userDb = await _context.Users.FirstOrDefaultAsync(n => n.Id == id);
+        
 
-            if (userDb != null)
-            {
-                userDb.Email = user.Email;
-                userDb.FullName = user.FullName;
-
-                await _context.SaveChangesAsync();
-            }
-            return userDb;
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var userDb = await _context.Users.FirstOrDefaultAsync(n => n.Id == id);
-            if (userDb != null)
-            {
-                _context.Users.Remove(userDb);
-                await _context.SaveChangesAsync();
-            }
-        }
     }
 }

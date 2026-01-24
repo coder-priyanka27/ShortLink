@@ -10,9 +10,6 @@ namespace ShortLink.Data.Services
     public interface IUsersService
     {
         Task<List<AppUser>> GetUsersAsync();
-        Task<AppUser> AddAsync(AppUser user);
-        Task<AppUser> GetByIdAsync(int id);
-        Task<AppUser> UpdateAsync(int id, AppUser user);
-        Task DeleteAsync(int id);
+        
     }
 }
