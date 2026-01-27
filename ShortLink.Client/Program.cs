@@ -34,6 +34,21 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+// 3. Update the default password settings
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    //Password settings
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 5;
+
+    //Lockout settings
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+});
+
 // Add Services to the container
 builder.Services.AddScoped<IUrlsService, UrlsService>();
 builder.Services.AddScoped<IUsersService, UsersService>();

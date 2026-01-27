@@ -57,6 +57,18 @@ namespace ShortLink.Client.Controllers
                         return View("Login", loginViewModel);
                     }
                 }
+                else
+                {
+                    await _userManager.AccessFailedAsync(user);
+
+                    if(await _userManager.IsLockedOutAsync(user))
+                    {
+                        ModelState.AddModelError("", "Your account is locked, please try again in 10 mins");
+                        return View("Login", loginViewModel);
+                    }
+                    ModelState.AddModelError("", "Invalid login attempt. Please check your username and password");
+                    return View("Login", loginViewModel);
+                }
             }
             return RedirectToAction("Index", "Home");
         }
@@ -82,7 +94,8 @@ namespace ShortLink.Client.Controllers
             {
                 Email = registerViewModel.EmailAddress,
                 UserName = registerViewModel.EmailAddress,
-                FullName = registerViewModel.FullName
+                FullName = registerViewModel.FullName,
+                LockoutEnabled = true
             };
 
             var userCreated = await _userManager.CreateAsync(newUser, registerViewModel.Password);
