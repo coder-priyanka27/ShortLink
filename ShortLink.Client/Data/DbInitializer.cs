@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using ShortLink.Client.Helpers.Roles;
 using ShortLink.Data;
 using ShortLink.Data.Models;
 
@@ -14,7 +15,7 @@ namespace ShortLink.Client.Data
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 
                 //Simple user related data
-                var simpleUserRole = "User";
+                var simpleUserRole = Role.User;
                 var simpleUserEmail = "user@shortlink.com";
                 if(!await roleManager.RoleExistsAsync(simpleUserRole))
                     await roleManager.CreateAsync(new IdentityRole() { Name = simpleUserRole});
@@ -34,7 +35,7 @@ namespace ShortLink.Client.Data
                     await userManager.AddToRoleAsync(simpleUser, simpleUserRole);
                 }
                 //Admin user related data
-                var adminUserRole = "Admin";
+                var adminUserRole = Role.Admin;
                 var adminUserEmail = "admin@shortlink.com";
                 if (!await roleManager.RoleExistsAsync(adminUserRole))
                     await roleManager.CreateAsync(new IdentityRole() { Name = adminUserRole });

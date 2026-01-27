@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
+using ShortLink.Client.Helpers.Roles;
 using ShortLink.Data;
 using ShortLink.Data.Models;
 using ShortLink.Data.Services;
+using System.Xml.Linq;
 
 namespace ShortLink.Client.Controllers
 {
@@ -67,7 +69,40 @@ namespace ShortLink.Client.Controllers
             if (!ModelState.IsValid) {
                 return View("Register", registerViewModel);
             }
-            return RedirectToAction("Index", "Home");
+
+            //Check if the user exists
+            var user = await _userManager.FindByEmailAsync(registerViewModel.EmailAddress);
+            if (user != null)
+            {
+                ModelState.AddModelError("", "Email address is already in use");
+                return View("Register", registerViewModel);
+            }
+
+            var newUser = new AppUser()
+            {
+                Email = registerViewModel.EmailAddress,
+                UserName = registerViewModel.EmailAddress,
+                FullName = registerViewModel.FullName
+            };
+
+            var userCreated = await _userManager.CreateAsync(newUser, registerViewModel.Password);
+            if (userCreated.Succeeded)
+            { 
+                await _userManager.AddToRoleAsync(newUser, Role.User);
+
+                //Login the User
+                await _signInManager.PasswordSignInAsync(newUser, registerViewModel.Password, false, false);
+            }
+            else
+            {
+                foreach(var error in userCreated.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View("Register", registerViewModel);
+            }
+
+                return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> Logout()
         {
