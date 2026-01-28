@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShortLink.Client.Data.ViewModels;
+using ShortLink.Client.Helpers.Roles;
 using ShortLink.Data;
 using ShortLink.Data.Models;
 using ShortLink.Data.Services;
+using System.Security.Claims;
 
 namespace ShortLink.Client.Controllers
 {
@@ -19,9 +21,10 @@ namespace ShortLink.Client.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            //// Data is from DB
+            var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var isAdmin = User.IsInRole(Role.Admin);
 
-            var allUrls = await _urlsService.GetUrlsAsync();
+            var allUrls = await _urlsService.GetUrlsAsync(loggedInUserId, isAdmin);
             var mappedAllUrls = _mapper.Map<List<Url>, List<GetUrlViewModel>>(allUrls);
             return View(mappedAllUrls);
         }
