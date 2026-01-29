@@ -1,15 +1,15 @@
 ﻿@model ConfirmEmailLoginViewModel;
 @{
-    ViewData["Title"] = "Log in to your account";
+    ViewData["Title"] = "Confirm your account";
 }
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <h4 class="form-header">Log in to your account</h4>
+        <h4 class="form-header">Confirm your account</h4>
 
         <div class="row">
             <div class="col-md-8 offset-md-2">
 
-                <form asp-controller="UserAuthentication" asp-action="LoginSubmitted">
+                <form asp-controller="UserAuthentication" asp-action="SendEmailConfirmation">
 
                     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -19,16 +19,11 @@
                         <small id="emailAddressSm" class="form-text text-muted">We will never share your email with anyone else.</small><br />
                         <span asp-validation-for="EmailAddress" class="text-danger"></span>
                     </div>
-                    <div form-group mb-3>
-                        <labl for="password">Password</labl>
-                        <input type="password" asp-for="Password" name="password" class="form-control" id="password" placeholder="Enter password" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-
+            
                     <button type="submit" class="btn btn-outline-success mt-2 btn-login">
-                        Log In
+                        Send confirmation email
                     </button>
-                   
+
                 </form>
             </div>
         </div>

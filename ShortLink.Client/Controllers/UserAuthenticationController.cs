@@ -29,9 +29,9 @@ namespace ShortLink.Client.Controllers
 
         public async Task<IActionResult> Login()
         {
-            return View(new LoginViewModel());
+            return View(new ConfirmEmailLoginViewModel());
         }
-        public async Task<IActionResult> LoginSubmitted(LoginViewModel loginViewModel)
+        public async Task<IActionResult> LoginSubmitted(ConfirmEmailLoginViewModel loginViewModel)
         {
             if(!ModelState.IsValid)
             {
@@ -49,7 +49,10 @@ namespace ShortLink.Client.Controllers
                     if(userLoggedIn.Succeeded)
                     {
                         return RedirectToAction("Index", "Home");
-
+                    }
+                    else if(userLoggedIn.IsNotAllowed)
+                    {
+                        return RedirectToAction("EmailConfirmation");
                     }
                     else
                     {
@@ -121,6 +124,12 @@ namespace ShortLink.Client.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+        public async Task<IActionResult> EmailConfirmation()
+        {
+            var confirmEmail = new ConfirmEmailLoginViewModel();
+            return View(confirmEmail);
+
         }
     }
 }

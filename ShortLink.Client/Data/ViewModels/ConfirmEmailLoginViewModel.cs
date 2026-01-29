@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShortLink.Client.Data.ViewModels
 {
-    public class LoginViewModel
+    public class ConfirmEmailLoginViewModel
     {
         [Required(ErrorMessage ="Email address is requird")]
         [CustomEmailValidator(ErrorMessage ="Email address is not valid (custom)")]
